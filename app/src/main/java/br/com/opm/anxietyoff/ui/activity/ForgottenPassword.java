@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import br.com.opm.anxietyoff.R;
@@ -26,6 +28,7 @@ public class ForgottenPassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgotten_password);
         getSupportActionBar().setTitle("Encontrar sua conta");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         authentication = new Authentication(this);
         findViews();
 
@@ -64,6 +67,17 @@ public class ForgottenPassword extends AppCompatActivity {
 
     public void onClickFind(View view) {
         authentication.changePassword(email.getText().toString());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

@@ -90,10 +90,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@android:color/transparent"
-        android:minHeight="0dp"
+        android:background="?attr/selectableItemBackground"
         android:onClick="onClickForgotPassword"
-        android:padding="6dp"
         android:text="Esqueceu a senha?"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
@@ -123,18 +121,7 @@
         android:text="Criar nova conta"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_separator" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/logintype_menhera" />
+        app:layout_constraintTop_toBottomOf="@+id/login_separator"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
