@@ -1,0 +1,10 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="editText_text">18sp</dimen>
+    <dimen name="buttonText">16sp</dimen>
+    <dimen name="switchText">16sp</dimen>
+    <dimen name="recyclerIView_item_padding">18dp</dimen>
+</resources>

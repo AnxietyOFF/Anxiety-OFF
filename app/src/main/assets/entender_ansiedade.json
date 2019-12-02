@@ -1,0 +1,14 @@
+[
+	{
+		"title" : "O que é Ansiedade?",
+		"subtitle" : "Entendendo o conceito de ansiedade",
+		"images" : ["https://images.ctfassets.net/v3n26e09qg2r/1FB3k851JMt1KAPlMzCY06/1812091332041de469081482ddc3a89d/hs_character_worried_1__1_?w=400&fm=webp"],
+		"text" : "Esse é um texto exemplo do que estará no aplicativo quando a pessoa clicar\nAssim aparecerá detalhes a mais e este texto"
+	},
+	{
+		"title" : "Efeitos Físicos e Mentais",
+		"subtitle" : "Efeitos e Sintomas originados pela Ansiedade",
+		"images" : ["https://images.ctfassets.net/v3n26e09qg2r/1FB3k851JMt1KAPlMzCY06/1812091332041de469081482ddc3a89d/hs_character_worried_1__1_?w=400&fm=webp"],
+		"text" : "Esse é um outro texto exemplo do que estará no aplicativo quando a pessoa clicar\nAssim aparecerá detalhes a mais e este texto"
+	}
+]
