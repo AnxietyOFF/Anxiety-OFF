@@ -56,15 +56,17 @@ public class Authentication {
                         if (task.isSuccessful()) {
                             new CloudFirestore().saveUser(user, mAuth.getUid());
                             profileSignInUpdate(user);
-                        } else
+                        } else{
+                            dialog.dismiss();
                             Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
     }
 
     private void profileSignInUpdate(User user) {
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setDisplayName(user.getName()).build();
+                .setDisplayName(user.getName()).setPhotoUri(user.getPhotoUri()).build();
         mAuth.getCurrentUser().updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

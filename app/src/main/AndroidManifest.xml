@@ -4,6 +4,11 @@
     package="br.com.opm.anxietyoff">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -13,17 +18,41 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".ui.activity.SuccessfulPasswordReset"></activity>
-        <activity android:name=".ui.activity.ForgottenPassword" />
-        <activity android:name=".ui.activity.RecyclerListActivity" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.android.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
+
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
+        <activity android:name=".ui.activity.SuccessfulPasswordReset"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.activity.ForgottenPassword"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.activity.RecyclerListActivity"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".ui.activity.StudentInterfaceActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".ui.activity.SignInActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name=".ui.activity.LoginActivity"
             android:screenOrientation="portrait"

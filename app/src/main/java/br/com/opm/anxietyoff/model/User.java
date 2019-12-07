@@ -1,17 +1,25 @@
 package br.com.opm.anxietyoff.model;
 
+import android.net.Uri;
+
 public class User {
 
     private String name, email, password, phone;
+    private Uri photoUri;
 
     public User() {
     }
 
-    public User(String name, String email, String password, String phone) {
+    public User(String name, String email, String password, String phone, Uri photoUri) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.phone = phone;
+        this.photoUri=photoUri;
+    }
+
+    public Uri getPhotoUri() {
+        return photoUri;
     }
 
     public String getName() {
