@@ -43,7 +43,7 @@ public class Authentication {
         return false;
     }
 
-    public void signIn(final User user) {
+    public void signUp(final User user) {
 
         if (isNull(user.getEmail(), user.getPassword())) return;
 
@@ -54,32 +54,31 @@ public class Authentication {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            new CloudFirestore().saveUser(user, mAuth.getUid());
-                            profileSignInUpdate(user);
+                            profileUpdate(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Intent intent = new Intent(context, StudentInterfaceActivity.class)
+                                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        context.startActivity(intent);
+                                    }
+                                    else
+                                        Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                }
+                            });
                         } else{
-                            dialog.dismiss();
                             Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
                         }
                     }
                 });
     }
 
-    private void profileSignInUpdate(User user) {
+    private Task<Void> profileUpdate(User user) {
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(user.getName()).setPhotoUri(user.getPhotoUri()).build();
-        mAuth.getCurrentUser().updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                dialog.dismiss();
-                if (task.isSuccessful()) {
-                    Intent intent = new Intent(context, StudentInterfaceActivity.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    context.startActivity(intent);
-                }
-                else
-                    Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        return mAuth.getCurrentUser().updateProfile(profileUpdates);
     }
 
     public void login(String email, String password) {

@@ -18,34 +18,52 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
-import br.com.opm.anxietyoff.ui.activity.SignInActivity;
+import br.com.opm.anxietyoff.R;
+import br.com.opm.anxietyoff.ui.activity.SignUpActivity;
 
 public class Storage {
 
     private FirebaseStorage firebaseStorage;
     private Context context;
-    private boolean pendences;
+    private List<UploadTask> tasks;
 
     public Storage(Context context) {
         firebaseStorage = FirebaseStorage.getInstance();
         this.context = context;
-        this.pendences = false;
+        this.tasks=new ArrayList<>();
     }
 
-    public boolean isPendences() {
-        return pendences;
+    public boolean isAllComplete() {
+
+        for(int i=0;i<tasks.size();i++){
+            if(!tasks.get(i).isComplete()) return false;
+        }
+
+        return true;
     }
 
-    public void uploadProfileImage(final File file, final ProgressBar progressBar) {
+    public boolean cancelTasks(){
+        boolean successful=true;
+        for(int i=0;i<tasks.size();i++){
+            if(!tasks.get(i).cancel()) successful=false;
+        }
+        return successful;
+    }
+
+    public void uploadProfileImage(final File file) {
 
         final StorageReference ref = firebaseStorage.getReference().child("images/profile/" + file.getName());
+        final SignUpActivity signUpActivity =(SignUpActivity) context;
+        final ProgressBar progressBar= signUpActivity.findViewById(R.id.activity_sign_in_progressBar);
 
         progressBar.setProgress(0);
         progressBar.setVisibility(View.VISIBLE);
 
-        pendences = true;
-        ref.putFile(Uri.fromFile(file)).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+        UploadTask uploadTask = ref.putFile(Uri.fromFile(file));
+        uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                 double progress = 100.0 * (taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
@@ -65,16 +83,16 @@ public class Storage {
         }).addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
-                progressBar.setVisibility(View.GONE);
-                progressBar.setProgress(0);
                 if (task.isSuccessful()) {
-                    SignInActivity signInActivity = (SignInActivity) context;
-                    signInActivity.setPhoto(task.getResult(), Uri.fromFile(file));
+                    signUpActivity.setPhoto(task.getResult());
                 } else
                     Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
+                progressBar.setProgress(0);
             }
         });
 
+        tasks.add(uploadTask);//adiciona task na lista de tasks
     }
 
 }

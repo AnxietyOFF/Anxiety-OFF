@@ -3,7 +3,6 @@ package br.com.opm.anxietyoff.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,9 +23,6 @@ import com.google.firebase.auth.FirebaseUser;
 import br.com.opm.anxietyoff.R;
 import br.com.opm.anxietyoff.firebase.Authentication;
 import br.com.opm.anxietyoff.model.Article;
-import br.com.opm.anxietyoff.ui.adapter.AdapterCreator;
-import br.com.opm.anxietyoff.ui.adapter.RecyclerViewArticleAdapter;
-import br.com.opm.anxietyoff.ui.adapter.RecyclerViewSettingsAdapter;
 import br.com.opm.anxietyoff.ui.fragment.ArticleFragment;
 import br.com.opm.anxietyoff.ui.fragment.HomeFragment;
 import br.com.opm.anxietyoff.ui.fragment.RecyclerListFragment;
@@ -46,11 +42,18 @@ public class StudentInterfaceActivity extends AppCompatActivity implements Navig
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_interface);
 
-        authentication=new Authentication(this);
+        authentication = new Authentication(this);
         fm = getSupportFragmentManager();
 
         findViews();
         setLayout();
+        setProfile();
+    }
+
+    private void setProfile() {
+        FirebaseUser currentUser = authentication.getCurrentUser();
+        email.setText(currentUser.getEmail());
+        name.setText(currentUser.getDisplayName());
     }
 
     private void findViews() {
@@ -58,8 +61,8 @@ public class StudentInterfaceActivity extends AppCompatActivity implements Navig
         drawerLayout = findViewById(R.id.student_interface_drawerLayout);
         navigationView = findViewById(R.id.student_interface_navView);
         headerView = navigationView.getHeaderView(0);
-        name=headerView.findViewById(R.id.nav_header_textView_name);
-        email=headerView.findViewById(R.id.nav_header_textView_email);
+        name = headerView.findViewById(R.id.nav_header_textView_name);
+        email = headerView.findViewById(R.id.nav_header_textView_email);
     }
 
     private void setLayout() {
@@ -74,17 +77,14 @@ public class StudentInterfaceActivity extends AppCompatActivity implements Navig
         item.setChecked(true);
 
         headerView.setClickable(false);
-
-        FirebaseUser currentUser=authentication.getCurrentUser();
-        email.setText(currentUser.getEmail());
-        name.setText(currentUser.getDisplayName());
     }
 
-    public void onClickSettings(View view){
+    public void onClickSettings(View view) {
         drawerLayout.closeDrawer(GravityCompat.START);
-        Intent intent=new Intent(this, RecyclerListActivity.class);
-        String[] list={"settings"};
-        intent.putExtra("adapter", list); intent.putExtra("title", "Settings");
+        Intent intent = new Intent(this, RecyclerListActivity.class);
+        String[] list = {"settings"};
+        intent.putExtra("adapter", list);
+        intent.putExtra("title", "Settings");
         startActivity(intent);
     }
 
@@ -119,9 +119,10 @@ public class StudentInterfaceActivity extends AppCompatActivity implements Navig
                     break;
                 }
                 case R.id.student_nav_item_entender_ansiedade: {
-                    String[] list={"article", "entender_ansiedade.json"};
-                    Bundle bundle=new Bundle(); bundle.putStringArray("adapter", list);
-                    RecyclerListFragment frag=new RecyclerListFragment();
+                    String[] list = {"article", "entender_ansiedade.json"};
+                    Bundle bundle = new Bundle();
+                    bundle.putStringArray("adapter", list);
+                    RecyclerListFragment frag = new RecyclerListFragment();
                     frag.setArguments(bundle);
                     transaction(frag);
                     toolbar.setTitle("Para entender");

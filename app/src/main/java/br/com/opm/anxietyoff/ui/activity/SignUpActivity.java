@@ -9,22 +9,22 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.FileUtils;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
 
 import com.squareup.picasso.Picasso;
 import com.yalantis.ucrop.UCrop;
+
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,26 +37,24 @@ import br.com.opm.anxietyoff.firebase.Storage;
 import br.com.opm.anxietyoff.model.User;
 import br.com.opm.anxietyoff.picasso.CircleTransform;
 
-public class SignInActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
 
 
-    private static final int MY_CAMERA_PERMISSION_CODE = 100;
+    private static final int CAMERA_PERMISSION_CODE = 100;
     private static final int REQUEST_TAKE_PHOTO = 1;
     private Authentication authentication;
     private Storage storage;
-    private EditText editName, editEmail, editPass, editPhone;
+    private EditText editName, editEmail, editPass;
     private ImageView profileImage;
-    private String currentPhotoPath;
-    private ProgressBar progressBar;
-    private Uri photoUri=null;
-    private File profilePhoto;
+    private String currentTempPhotoPath;
+    private Uri photoUri = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
+        setContentView(R.layout.activity_sign_up);
         authentication = new Authentication(this);
-        storage=new Storage(this);
+        storage = new Storage(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         findViews();
     }
@@ -65,52 +63,77 @@ public class SignInActivity extends AppCompatActivity {
         editName = findViewById(R.id.activity_sign_in_editText_name);
         editEmail = findViewById(R.id.activity_sign_in_editText_email);
         editPass = findViewById(R.id.signIn_editText_pass);
-        editPhone = findViewById(R.id.signIn_editText_phone);
         profileImage = findViewById(R.id.activity_sign_in_profile_image);
-        progressBar = findViewById(R.id.activity_sign_in_progressBar);
     }
 
     public void onClickRegister(View view) {
-        String name = editName.getText().toString(), email = editEmail.getText().toString(),
-                pass = editPass.getText().toString(), phone = editPhone.getText().toString();
 
-        User user = new User(name, email, pass, phone, photoUri);
+        if (!storage.isAllComplete())
+            Toast.makeText(this, "Aguarde o upload atual terminar", Toast.LENGTH_SHORT);
 
-        authentication.signIn(user);
+        else {
+            String name = editName.getText().toString(), email = editEmail.getText().toString(),
+                    pass = editPass.getText().toString();
+
+            User user = new User(name, email, pass, photoUri);
+
+            authentication.signUp(user);
+        }
+
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if (id == android.R.id.home) {
-            finish();
+        if (id == android.R.id.home){
+            if(storage.cancelTasks()) finish();
+            else Toast.makeText(this, "Erro ao cancelar o upload atual, aguarde...", Toast.LENGTH_SHORT);
         }
+
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        if(storage.cancelTasks()) super.onBackPressed();
+        else Toast.makeText(this, "Erro ao cancelar o upload atual, aguarde...", Toast.LENGTH_SHORT);
+    }
+
     public void onClickCamera(View view) {
-        if(storage.isPendences()) Toast.makeText(this, "Aguarde o upload atual terminar", Toast.LENGTH_SHORT);
+        if (!storage.isAllComplete())
+            Toast.makeText(this, "Aguarde o upload atual terminar", Toast.LENGTH_SHORT);
         else if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
         } else {
             dispatchTakePictureIntent();
         }
     }
 
-    private File createProfileFile(File source) throws IOException {
-        File storageDir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-                .getAbsolutePath()+"PNG_ProfilePhoto.png");
-        //FODASE ESSA MERDA CARALHO!
+    public void onClickGallery(View view) {
+        if (!storage.isAllComplete())
+            Toast.makeText(this, "Aguarde o upload atual terminar", Toast.LENGTH_SHORT);
     }
 
-    private File createImageFile() throws IOException {
+    private File createTempImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
-        currentPhotoPath = image.getAbsolutePath();
+        String imageFileName = "PNG_" + timeStamp + "_";
+        File storageDir = this.getCacheDir();
+        File image = File.createTempFile(imageFileName, ".png", storageDir);
+        image.deleteOnExit();
+        currentTempPhotoPath = image.getAbsolutePath();
         return image;
+    }
+
+    private void createImageFile() {
+        File imageSrc = new File(currentTempPhotoPath);
+        String storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath() + imageSrc.getName();
+        File imageDest = new File(storageDir);
+        try {
+            FileUtils.copyFile(imageSrc, imageDest);
+        } catch (IOException e) {
+            Toast.makeText(this, "Erro ao criar arquivo final de armazenamento da imagem", Toast.LENGTH_SHORT);
+        }
     }
 
     private void dispatchTakePictureIntent() {
@@ -118,13 +141,14 @@ public class SignInActivity extends AppCompatActivity {
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             File photoFile = null;
             try {
-                photoFile = createImageFile();
+                photoFile = createTempImageFile();
             } catch (IOException ex) {
                 Toast.makeText(this, "Erro ao criar arquivo de source", Toast.LENGTH_SHORT);
             }
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.example.android.fileprovider", photoFile);
+                /*Uri photoURI = FileProvider.getUriForFile(this,
+                        "com.example.android.fileprovider", photoFile);*/
+                Uri photoURI = Uri.fromFile(photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
@@ -132,13 +156,14 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void uCrop() {
-        Uri sourceUri = Uri.fromFile(new File(currentPhotoPath));
+        Uri sourceUri = Uri.fromFile(new File(currentTempPhotoPath));
+
+        Uri destinationUri = null;
         try {
-            File imageFile = createImageFile();
+            destinationUri = Uri.fromFile(createTempImageFile()); //pegando URI do arquivo de destino
         } catch (IOException e) {
             Toast.makeText(this, "Erro ao criar arquivo de destino", Toast.LENGTH_SHORT);
         }
-        Uri destinationUri = Uri.fromFile(new File(currentPhotoPath));
 
         UCrop.Options options = new UCrop.Options();
         options.withAspectRatio(1, 1);
@@ -148,6 +173,13 @@ public class SignInActivity extends AppCompatActivity {
         UCrop.of(sourceUri, destinationUri)
                 .withOptions(options)
                 .start(this);
+    }
+
+    public void setPhoto(Uri onlineUri) {
+        profileImage.setColorFilter(null);
+        this.photoUri = onlineUri;
+        Picasso.get().load(currentTempPhotoPath).transform(new CircleTransform()).into(profileImage);
+        profileImage.clearColorFilter();
     }
 
     @Override
@@ -164,7 +196,7 @@ public class SignInActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK) {
                     Uri resultUri = UCrop.getOutput(data);
                     File image = new File(resultUri.getPath());
-                    storage.uploadProfileImage(image, progressBar);
+                    storage.uploadProfileImage(image);
                     profileImage.setColorFilter(Color.argb(100, 0, 0, 0));
                 } else if (resultCode == UCrop.RESULT_ERROR) {
                     final Throwable cropError = UCrop.getError(data);
@@ -179,20 +211,14 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == MY_CAMERA_PERMISSION_CODE) {
+        if (requestCode == CAMERA_PERMISSION_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Acesso à câmera garantido", Toast.LENGTH_LONG).show();
+                Log.d("Access", "Acesso à câmera garantido");
                 dispatchTakePictureIntent();
             } else {
-                Toast.makeText(this, "Acesso à câmera negado", Toast.LENGTH_LONG).show();
+                Log.d("Access", "Acesso à câmera negado");
             }
         }
-    }
-
-    public void setPhoto(Uri onlineUri, Uri localUri){
-        profileImage.setColorFilter(null);
-        this.photoUri=onlineUri;
-        Picasso.get().load(localUri).transform(new CircleTransform()).into(profileImage);
     }
 
 }

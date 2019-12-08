@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".ui.activity.SignInActivity">
+    tools:context=".ui.activity.SignUpActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/activity_sign_in_guideline"
@@ -35,7 +35,7 @@
             app:layout_constraintEnd_toEndOf="@id/activity_sign_in_imageView_background"
             app:layout_constraintStart_toStartOf="@+id/activity_sign_in_imageView_background"
             app:layout_constraintTop_toTopOf="@+id/activity_sign_in_imageView_background"
-            app:srcCompat="@drawable/worried" />
+            app:srcCompat="@drawable/generic_user" />
 
         <ProgressBar
             android:id="@+id/activity_sign_in_progressBar"
@@ -67,6 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="30dp"
+            android:onClick="onClickGallery"
             android:text="Galeria"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/activity_sign_in_guideline"
@@ -111,19 +112,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/activity_sign_in_editText_email" />
 
-        <EditText
-            android:id="@+id/signIn_editText_phone"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="30dp"
-            android:hint="@string/hint_phone"
-            android:inputType="phone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/signIn_editText_pass" />
-
         <Button
             android:id="@+id/signIn_button_save"
             android:layout_width="0dp"
@@ -135,7 +123,7 @@
             android:text="Cadastrar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/signIn_editText_phone" />
+            app:layout_constraintTop_toBottomOf="@+id/signIn_editText_pass" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
