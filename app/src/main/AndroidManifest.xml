@@ -42,7 +42,7 @@
 
         <activity
             android:name=".ui.activity.ForgottenPasswordActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".ui.activity.RecyclerListActivity"

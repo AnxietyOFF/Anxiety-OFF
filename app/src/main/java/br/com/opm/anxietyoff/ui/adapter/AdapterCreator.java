@@ -25,15 +25,16 @@ public class AdapterCreator {
         this.context = context;
     }
 
-    public RecyclerView.Adapter adapterChooser(String[] adapterOptions){
-        switch(adapterOptions[0]){
-            case "settings":{
+    public RecyclerView.Adapter adapterChooser(String[] adapterOptions) {
+        switch (adapterOptions[0]) {
+            case "settings": {
                 return SettingsAdapter();
             }
-            case "article":{
+            case "article": {
                 return jsonAdapter(adapterOptions[1]);
             }
-            default: return null;
+            default:
+                return null;
         }
     }
 
@@ -43,7 +44,6 @@ public class AdapterCreator {
     }
 
     private RecyclerViewSettingsAdapter SettingsAdapter() {
-
         List<SettingsItem> list = new ArrayList<>();
         View.OnClickListener aux;
 

@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <LinearLayout
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/activity_student_interface_bottom_bar"
@@ -33,6 +34,7 @@
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
         </LinearLayout>
+
 
         <ImageView
             android:id="@+id/activity_student_interface_bottom_bar"
@@ -76,7 +78,6 @@
         android:fitsSystemWindows="false"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/student_nav">
-
     </com.google.android.material.navigation.NavigationView>
 
 

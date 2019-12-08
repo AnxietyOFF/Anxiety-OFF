@@ -153,7 +153,7 @@ public class StudentInterfaceActivity extends AppCompatActivity implements Navig
                     break;
                 }
                 case R.id.student_nav_item_respiracao: {
-                    BreathFragment frag=new BreathFragment();
+                    BreathFragment frag = new BreathFragment();
                     transaction(frag);
                     toolbar.setTitle("Respiração");
                     break;
@@ -187,7 +187,7 @@ public class StudentInterfaceActivity extends AppCompatActivity implements Navig
                     Toast.makeText(this, "Ue??", Toast.LENGTH_SHORT).show();
                 }
             }
-        } else Toast.makeText(this, "Reselect", Toast.LENGTH_SHORT).show();
+        }
 
         drawerLayout.closeDrawer(GravityCompat.START);
 
