@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
 import br.com.opm.anxietyoff.model.User;
+import br.com.opm.anxietyoff.ui.activity.SignUpActivity;
 import br.com.opm.anxietyoff.ui.activity.StudentInterfaceActivity;
 import br.com.opm.anxietyoff.ui.activity.SuccessfulPasswordReset;
 

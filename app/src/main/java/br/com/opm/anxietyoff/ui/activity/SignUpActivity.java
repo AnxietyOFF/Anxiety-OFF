@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
@@ -20,11 +19,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.squareup.picasso.Picasso;
 import com.yalantis.ucrop.UCrop;
-
-import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -86,9 +86,10 @@ public class SignUpActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if (id == android.R.id.home){
-            if(storage.cancelTasks()) finish();
-            else Toast.makeText(this, "Erro ao cancelar o upload atual, aguarde...", Toast.LENGTH_SHORT);
+        if (id == android.R.id.home) {
+            if (storage.cancelTasks()) finish();
+            else
+                Toast.makeText(this, "Erro ao cancelar o upload atual, aguarde...", Toast.LENGTH_SHORT);
         }
 
         return super.onOptionsItemSelected(item);
@@ -96,8 +97,9 @@ public class SignUpActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(storage.cancelTasks()) super.onBackPressed();
-        else Toast.makeText(this, "Erro ao cancelar o upload atual, aguarde...", Toast.LENGTH_SHORT);
+        if (storage.cancelTasks()) super.onBackPressed();
+        else
+            Toast.makeText(this, "Erro ao cancelar o upload atual, aguarde...", Toast.LENGTH_SHORT);
     }
 
     public void onClickCamera(View view) {
@@ -117,23 +119,10 @@ public class SignUpActivity extends AppCompatActivity {
 
     private File createTempImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "PNG_" + timeStamp + "_";
-        File storageDir = this.getCacheDir();
-        File image = File.createTempFile(imageFileName, ".png", storageDir);
-        image.deleteOnExit();
+        String imageFileName = "PNG_" + timeStamp + ".png";
+        File image = new File(getCacheDir(), imageFileName);
         currentTempPhotoPath = image.getAbsolutePath();
         return image;
-    }
-
-    private void createImageFile() {
-        File imageSrc = new File(currentTempPhotoPath);
-        String storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath() + imageSrc.getName();
-        File imageDest = new File(storageDir);
-        try {
-            FileUtils.copyFile(imageSrc, imageDest);
-        } catch (IOException e) {
-            Toast.makeText(this, "Erro ao criar arquivo final de armazenamento da imagem", Toast.LENGTH_SHORT);
-        }
     }
 
     private void dispatchTakePictureIntent() {
@@ -146,9 +135,8 @@ public class SignUpActivity extends AppCompatActivity {
                 Toast.makeText(this, "Erro ao criar arquivo de source", Toast.LENGTH_SHORT);
             }
             if (photoFile != null) {
-                /*Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.example.android.fileprovider", photoFile);*/
-                Uri photoURI = Uri.fromFile(photoFile);
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "br.com.opm.fileprovider", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
@@ -178,7 +166,9 @@ public class SignUpActivity extends AppCompatActivity {
     public void setPhoto(Uri onlineUri) {
         profileImage.setColorFilter(null);
         this.photoUri = onlineUri;
-        Picasso.get().load(currentTempPhotoPath).transform(new CircleTransform()).into(profileImage);
+        Glide.with(this).load(new File(currentTempPhotoPath)).apply(RequestOptions.circleCropTransform())
+                .into(profileImage);
+        //Picasso.get().load(new File(currentTempPhotoPath)).transform(new CircleTransform()).into(profileImage);
         profileImage.clearColorFilter();
     }
 

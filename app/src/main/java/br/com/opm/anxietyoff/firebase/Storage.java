@@ -48,7 +48,8 @@ public class Storage {
     public boolean cancelTasks(){
         boolean successful=true;
         for(int i=0;i<tasks.size();i++){
-            if(!tasks.get(i).cancel()) successful=false;
+            UploadTask aux = tasks.get(i);
+            if(!aux.isComplete() && !aux.cancel())successful=false;
         }
         return successful;
     }
@@ -59,17 +60,10 @@ public class Storage {
         final SignUpActivity signUpActivity =(SignUpActivity) context;
         final ProgressBar progressBar= signUpActivity.findViewById(R.id.activity_sign_in_progressBar);
 
-        progressBar.setProgress(0);
         progressBar.setVisibility(View.VISIBLE);
 
         UploadTask uploadTask = ref.putFile(Uri.fromFile(file));
-        uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                double progress = 100.0 * (taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                progressBar.setProgress((int) progress);
-            }
-        }).addOnPausedListener(new OnPausedListener<UploadTask.TaskSnapshot>() {
+        uploadTask.addOnPausedListener(new OnPausedListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onPaused(UploadTask.TaskSnapshot taskSnapshot) {
                 System.out.println("Upload is paused");
@@ -88,7 +82,6 @@ public class Storage {
                 } else
                     Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.GONE);
-                progressBar.setProgress(0);
             }
         });
 

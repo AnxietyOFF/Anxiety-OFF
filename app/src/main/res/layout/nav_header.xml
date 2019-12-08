@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/nav_header_imageView_settings"
+        android:id="@+id/nav_header_imageButton_settings"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:background="@null"

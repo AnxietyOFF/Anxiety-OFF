@@ -2,8 +2,10 @@ package br.com.opm.anxietyoff.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,12 +19,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
 
 import br.com.opm.anxietyoff.R;
 import br.com.opm.anxietyoff.firebase.Authentication;
 import br.com.opm.anxietyoff.model.Article;
+import br.com.opm.anxietyoff.picasso.CircleTransform;
 import br.com.opm.anxietyoff.ui.fragment.ArticleFragment;
 import br.com.opm.anxietyoff.ui.fragment.HomeFragment;
 import br.com.opm.anxietyoff.ui.fragment.RecyclerListFragment;
@@ -36,6 +44,7 @@ public class StudentInterfaceActivity extends AppCompatActivity implements Navig
     private View headerView;
     private TextView name, email;
     private Authentication authentication;
+    private ImageView profileImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +59,6 @@ public class StudentInterfaceActivity extends AppCompatActivity implements Navig
         setProfile();
     }
 
-    private void setProfile() {
-        FirebaseUser currentUser = authentication.getCurrentUser();
-        email.setText(currentUser.getEmail());
-        name.setText(currentUser.getDisplayName());
-    }
-
     private void findViews() {
         toolbar = findViewById(R.id.toolbar);
         drawerLayout = findViewById(R.id.student_interface_drawerLayout);
@@ -63,6 +66,7 @@ public class StudentInterfaceActivity extends AppCompatActivity implements Navig
         headerView = navigationView.getHeaderView(0);
         name = headerView.findViewById(R.id.nav_header_textView_name);
         email = headerView.findViewById(R.id.nav_header_textView_email);
+        profileImage = headerView.findViewById(R.id.nav_header_imageView_profile);
     }
 
     private void setLayout() {
@@ -77,6 +81,16 @@ public class StudentInterfaceActivity extends AppCompatActivity implements Navig
         item.setChecked(true);
 
         headerView.setClickable(false);
+    }
+
+    private void setProfile() {
+        FirebaseUser currentUser = authentication.getCurrentUser();
+        currentUser.getPhotoUrl();
+        email.setText(currentUser.getEmail());
+        name.setText(currentUser.getDisplayName());
+        Glide.with(this).load(authentication.getCurrentUser().getPhotoUrl()).error(R.drawable.generic_user).apply(RequestOptions.circleCropTransform())
+                .into(profileImage);
+        //Picasso.get().load(authentication.getCurrentUser().getPhotoUrl()).transform(new CircleTransform()).into(profileImage);
     }
 
     public void onClickSettings(View view) {
