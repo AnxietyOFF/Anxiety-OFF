@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "747159193428",
+    "firebase_url": "https://anxiety-off-11503.firebaseio.com",
+    "project_id": "anxiety-off-11503",
+    "storage_bucket": "anxiety-off-11503.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:747159193428:android:37132c1cb4b73a52616ac1",
+        "android_client_info": {
+          "package_name": "br.com.opm.anxietyoff"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "747159193428-rq7la4qn1l4mcd2vhloqceiuejamosjq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.opm.anxietyoff",
+            "certificate_hash": "6153be88cc3910e6be98dc7f01b3259207d7c124"
+          }
+        },
+        {
+          "client_id": "747159193428-h1ejfab1cpevqc84hvhe4ni77opave5c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_UjsGQLgCDfooeXKJXZtHAPtT2Oc0yqM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "747159193428-h1ejfab1cpevqc84hvhe4ni77opave5c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

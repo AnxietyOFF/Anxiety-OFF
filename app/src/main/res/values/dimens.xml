@@ -1,0 +1,15 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="editText_text">18sp</dimen>
+    <dimen name="textView_title">18sp</dimen>
+    <dimen name="textView_subTitle">16sp</dimen>
+    <dimen name="buttonText">16sp</dimen>
+    <dimen name="switchText">16sp</dimen>
+    <dimen name="recyclerIView_item_padding">18dp</dimen>
+    <dimen name="textViewText">14sp</dimen>
+    <dimen name="textViewLineSpacingExtra">6dp</dimen>
+    <dimen name="textViewLineSpacingMultiplier">2.5</dimen>
+</resources>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/student_nav_item_home"
+            android:icon="@drawable/ic_home"
+            android:title="Home" />
+    </group>
+
+    <item android:id="@+id/student_nav_item_licoes"
+        android:title="Lições">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/student_nav_item_entender_ansiedade"
+                    android:icon="@drawable/ic_understand"
+                    android:title="Para entender a ansiedade" />
+                <item
+                    android:id="@+id/student_nav_item_tratar_ansiedade"
+                    android:icon="@drawable/ic_treat"
+                    android:title="Para tratar a ansiedade" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:id="@+id/student_nav_item_terapias"
+        android:title="Terapias">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/student_nav_item_meditacao"
+                    android:icon="@drawable/ic_meditation"
+                    android:title="Meditação" />
+                <item
+                    android:id="@+id/student_nav_item_respiracao"
+                    android:icon="@drawable/ic_breath"
+                    android:title="Respiração" />
+                <item
+                    android:id="@+id/student_nav_item_exercicios"
+                    android:icon="@drawable/ic_exercise"
+                    android:title="Exercícios Físicos" />
+                <item
+                    android:id="@+id/student_nav_item_sons"
+                    android:icon="@drawable/ic_songs"
+                    android:title="Sons relaxantes" />
+            </group>
+        </menu>
+    </item>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/student_nav_item_diario"
+            android:icon="@drawable/ic_diary"
+            android:title="Diário" />
+        <item
+            android:id="@+id/student_nav_item_teste"
+            android:icon="@drawable/ic_tests"
+            android:title="Teste de Ansiedade" />
+        <item
+            android:id="@+id/student_nav_item_relatorio"
+            android:icon="@drawable/ic_report"
+            android:title="Relatório" />
+    </group>
+
+</menu>

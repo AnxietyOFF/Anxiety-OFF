@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.BreathFragment">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="15dp"
+        android:text="Ansioso? Acelerado?"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/fragment_breath_textView_subTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/fragment_breath_textView_subTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="20dp"
+        android:text="Tente respirar no ritmo dessa animação:"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/fragment_breath_gif_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/fragment_breath_gif_background"
+        android:layout_width="0dp"
+        android:layout_height="350dp"
+        android:background="@drawable/breath_exercise_background_shape"
+        android:src="@color/fragment_breath_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="14dp"
+        android:text="Inspire e expire em sincronia com a animação, por no mínimo 60 segundos."
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_breath_gif_background" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:src="@drawable/breath_exercise"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
