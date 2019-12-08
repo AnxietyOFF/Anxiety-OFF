@@ -13,7 +13,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnPausedListener;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -39,7 +38,8 @@ public class Storage {
     public boolean isAllComplete() {
 
         for(int i=0;i<tasks.size();i++){
-            if(!tasks.get(i).isComplete()) return false;
+            UploadTask aux = tasks.get(i);
+            if(!aux.isComplete()) return false;
         }
 
         return true;
@@ -58,7 +58,7 @@ public class Storage {
 
         final StorageReference ref = firebaseStorage.getReference().child("images/profile/" + file.getName());
         final SignUpActivity signUpActivity =(SignUpActivity) context;
-        final ProgressBar progressBar= signUpActivity.findViewById(R.id.activity_sign_in_progressBar);
+        final ProgressBar progressBar= signUpActivity.findViewById(R.id.activity_sign_up_progressBar);
 
         progressBar.setVisibility(View.VISIBLE);
 

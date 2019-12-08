@@ -15,14 +15,14 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/activity_sign_in_guideline"
+        app:layout_constraintBottom_toTopOf="@id/activity_sign_up_guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/recyclerView_item_imageView"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Título exemplo" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/activity_sign_in_guideline"
+        android:id="@+id/activity_sign_up_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -37,7 +37,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/recyclerView_item_textView_title"
-        app:layout_constraintTop_toBottomOf="@id/activity_sign_in_guideline"
+        app:layout_constraintTop_toBottomOf="@id/activity_sign_up_guideline"
         tools:text="Subtítulo exemplo" />
 
     <ImageView

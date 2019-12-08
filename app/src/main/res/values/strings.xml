@@ -21,4 +21,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="successful_password_reset_message">Tudo certo por aqui! Verifique seu email.\nEnviamos um link para alteraçao da senha da sua conta.</string>
     <string name="forgotten_password_message">Insira seu email para procurar sua conta.</string>
+    <string name="hint_password2">Repita a senha</string>
 </resources>
