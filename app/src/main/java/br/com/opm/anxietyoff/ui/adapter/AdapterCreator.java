@@ -51,7 +51,6 @@ public class AdapterCreator {
         aux = new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Confirmação de logoff");
                 builder.setMessage("Deseja mesmo deslogar da conta atual?");

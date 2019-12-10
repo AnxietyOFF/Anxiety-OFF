@@ -11,4 +11,5 @@
     <dimen name="textViewText">14sp</dimen>
     <dimen name="textViewLineSpacingExtra">6dp</dimen>
     <dimen name="textViewLineSpacingMultiplier">2.5</dimen>
+    <dimen name="textView_bigTitle">25sp</dimen>
 </resources>

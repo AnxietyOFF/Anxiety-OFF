@@ -47,6 +47,8 @@
         <item name="buttonStyle">@style/App_ButtonStyle</item>
         <item name="android:textViewStyle">@style/App_TextViewStyle</item>
         <item name="android:alertDialogTheme">@style/App_AlertDialogTheme</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:colorBackground">@android:color/white</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

@@ -28,11 +28,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <!-- app:layout_behavior="@string/appbar_scrolling_view_behavior" -->
             <FrameLayout
                 android:id="@+id/student_frameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            />
+
         </LinearLayout>
 
 
@@ -61,6 +63,7 @@
             android:layout_marginBottom="4dp"
             android:clickable="true"
             android:focusable="true"
+            android:onClick="onClickCalmDownNow"
             android:scaleType="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

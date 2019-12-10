@@ -48,19 +48,27 @@
         </menu>
     </item>
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/student_nav_item_diario"
-            android:icon="@drawable/ic_diary"
-            android:title="Diário" />
-        <item
-            android:id="@+id/student_nav_item_teste"
-            android:icon="@drawable/ic_tests"
-            android:title="Teste de Ansiedade" />
-        <item
-            android:id="@+id/student_nav_item_relatorio"
-            android:icon="@drawable/ic_report"
-            android:title="Relatório" />
-    </group>
+    <item android:id="@+id/student_nav_item_acompanhamentos"
+        android:title="Acompanhamentos">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/student_nav_item_diario"
+                    android:icon="@drawable/ic_diary"
+                    android:title="Diário" />
+                <item
+                    android:id="@+id/student_nav_item_teste"
+                    android:icon="@drawable/ic_tests"
+                    android:title="Teste de Ansiedade" />
+                <item
+                    android:id="@+id/student_nav_item_relatorio"
+                    android:icon="@drawable/ic_report"
+                    android:title="Relatório" />
+            </group>
+        </menu>
+    </item>
+
+
+
 
 </menu>

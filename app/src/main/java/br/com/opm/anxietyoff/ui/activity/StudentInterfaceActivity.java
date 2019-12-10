@@ -16,7 +16,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -33,6 +32,7 @@ import br.com.opm.anxietyoff.ui.fragment.RecyclerListFragment;
 
 public class StudentInterfaceActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String BACK_STACK_ROOT_TAG = "root_fragment";
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -97,23 +97,40 @@ public class StudentInterfaceActivity extends AppCompatActivity implements Navig
         startActivity(intent);
     }
 
+    public void onClickCalmDownNow(View view) {
+        startActivity(new Intent(this, CalmDownNowActivity.class));
+    }
+
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        else if(fm.getBackStackEntryCount()==1){
+            finish();
+        }
+        else {
             super.onBackPressed();
         }
     }
 
-    public void transaction(Fragment frag) {
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.student_frameLayout, frag);
-        ft.commit();
+    public void replaceFragment(Fragment frag) {
+        fm.popBackStack(BACK_STACK_ROOT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        fm.beginTransaction()
+                .replace(R.id.student_frameLayout, frag)
+                .addToBackStack(BACK_STACK_ROOT_TAG)
+                .commit();
+    }
+
+    public void addFragment(Fragment frag){
+        fm.beginTransaction()
+                .replace(R.id.student_frameLayout, frag)
+                .addToBackStack(null)
+                .commit();
     }
 
     public void setArticleFragment(Article article) {
-        transaction(new ArticleFragment(article));
+        addFragment(new ArticleFragment(article));
     }
 
     @Override
@@ -123,7 +140,7 @@ public class StudentInterfaceActivity extends AppCompatActivity implements Navig
 
             switch (menuItem.getItemId()) {
                 case R.id.student_nav_item_home: {
-                    transaction(new HomeFragment());
+                    replaceFragment(new HomeFragment());
                     toolbar.setTitle(R.string.app_name);
                     break;
                 }
@@ -133,7 +150,7 @@ public class StudentInterfaceActivity extends AppCompatActivity implements Navig
                     bundle.putStringArray("adapter", list);
                     RecyclerListFragment frag = new RecyclerListFragment();
                     frag.setArguments(bundle);
-                    transaction(frag);
+                    replaceFragment(frag);
                     toolbar.setTitle("Para entender");
                     break;
                 }
@@ -143,7 +160,7 @@ public class StudentInterfaceActivity extends AppCompatActivity implements Navig
                     bundle.putStringArray("adapter", list);
                     RecyclerListFragment frag = new RecyclerListFragment();
                     frag.setArguments(bundle);
-                    transaction(frag);
+                    replaceFragment(frag);
                     toolbar.setTitle("Para tratar");
                     break;
                 }
@@ -154,7 +171,7 @@ public class StudentInterfaceActivity extends AppCompatActivity implements Navig
                 }
                 case R.id.student_nav_item_respiracao: {
                     BreathFragment frag = new BreathFragment();
-                    transaction(frag);
+                    replaceFragment(frag);
                     toolbar.setTitle("Respiração");
                     break;
                 }
