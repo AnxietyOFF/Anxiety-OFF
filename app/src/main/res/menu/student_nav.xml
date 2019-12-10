@@ -28,22 +28,31 @@
         android:title="Terapias">
         <menu>
             <group android:checkableBehavior="single">
+
                 <item
                     android:id="@+id/student_nav_item_meditacao"
                     android:icon="@drawable/ic_meditation"
-                    android:title="Meditação" />
+                    android:title="Meditação"
+                    android:visible="false"
+                    />
                 <item
                     android:id="@+id/student_nav_item_respiracao"
                     android:icon="@drawable/ic_breath"
                     android:title="Respiração" />
+
+
                 <item
                     android:id="@+id/student_nav_item_exercicios"
                     android:icon="@drawable/ic_exercise"
-                    android:title="Exercícios Físicos" />
+                    android:title="Exercícios Físicos"
+                    android:visible="false"/>
                 <item
                     android:id="@+id/student_nav_item_sons"
                     android:icon="@drawable/ic_songs"
-                    android:title="Sons relaxantes" />
+                    android:title="Sons relaxantes"
+                    android:visible="false"/>
+
+
             </group>
         </menu>
     </item>
@@ -52,10 +61,14 @@
         android:title="Acompanhamentos">
         <menu>
             <group android:checkableBehavior="single">
+
+
                 <item
                     android:id="@+id/student_nav_item_diario"
                     android:icon="@drawable/ic_diary"
-                    android:title="Diário" />
+                    android:title="Diário"
+                    android:visible="false"/>
+
                 <item
                     android:id="@+id/student_nav_item_teste"
                     android:icon="@drawable/ic_tests"

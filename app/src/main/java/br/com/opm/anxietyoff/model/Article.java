@@ -3,9 +3,10 @@ package br.com.opm.anxietyoff.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Article {
+public class Article implements Serializable {
 
     @SerializedName("title")
     @Expose

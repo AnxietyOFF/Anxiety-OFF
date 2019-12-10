@@ -19,7 +19,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        new CloudFirestore().configureFirestoreSettings();
+        new CloudFirestore(this).configureFirestoreSettings();
         authentication =new Authentication(this);
         verifyLog();
     }

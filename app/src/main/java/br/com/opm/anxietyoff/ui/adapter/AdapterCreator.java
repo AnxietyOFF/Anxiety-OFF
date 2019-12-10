@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -13,9 +14,14 @@ import java.util.List;
 
 import br.com.opm.anxietyoff.R;
 import br.com.opm.anxietyoff.firebase.Authentication;
-import br.com.opm.anxietyoff.json.JsonData;
+import br.com.opm.anxietyoff.firebase.CloudFirestore;
+import br.com.opm.anxietyoff.json.JsonDataArticles;
+import br.com.opm.anxietyoff.json.JsonDataBeckTest;
+import br.com.opm.anxietyoff.model.Answers;
+import br.com.opm.anxietyoff.model.Questions;
 import br.com.opm.anxietyoff.model.SettingsItem;
 import br.com.opm.anxietyoff.ui.activity.LoginActivity;
+import br.com.opm.anxietyoff.ui.fragment.RecyclerListFragment;
 
 public class AdapterCreator {
 
@@ -30,17 +36,53 @@ public class AdapterCreator {
             case "settings": {
                 return SettingsAdapter();
             }
-            case "article": {
-                return jsonAdapter(adapterOptions[1]);
+            case "lesson": {
+                return lessonsAdapter(adapterOptions[1]);
+            }
+            case "test":{
+                return testsAdapter(adapterOptions[1]);
             }
             default:
                 return null;
         }
     }
 
-    private RecyclerViewArticleAdapter jsonAdapter(String fileURL) {
-        JsonData jsonData = new JsonData(context, fileURL);
-        return new RecyclerViewArticleAdapter(context, jsonData.getArticles());
+    public RecyclerView.Adapter adapterChooser(String[] adapterOptions, Fragment frag) {
+        switch (adapterOptions[0]) {
+            case "settings": {
+                return SettingsAdapter();
+            }
+            case "lesson": {
+                return lessonsAdapter(adapterOptions[1]);
+            }
+            case "test":{
+                return testsAdapter(adapterOptions[1]);
+            }
+            case "report":{
+                return reportsAdapter((RecyclerListFragment) frag);
+            }
+            default:
+                return null;
+        }
+    }
+
+    private RecyclerViewReportAdapter reportsAdapter(RecyclerListFragment frag) {
+
+        List<Answers> list=new ArrayList<>();
+
+        new CloudFirestore(context, frag).getBeckTestAnswers();
+
+        return new RecyclerViewReportAdapter(context, list, frag);
+    }
+
+    private RecyclerViewAnxietyTestsAdapter testsAdapter(String fileURL) {
+        JsonDataArticles jsonDataArticles = new JsonDataArticles(context, fileURL);
+        return new RecyclerViewAnxietyTestsAdapter(context, jsonDataArticles.getArticles());
+    }
+
+    private RecyclerViewLessonsAdapter lessonsAdapter(String fileURL) {
+        JsonDataArticles jsonDataArticles = new JsonDataArticles(context, fileURL);
+        return new RecyclerViewLessonsAdapter(context, jsonDataArticles.getArticles());
     }
 
     private RecyclerViewSettingsAdapter SettingsAdapter() {
@@ -74,6 +116,13 @@ public class AdapterCreator {
         list.add(new SettingsItem("Sair", "Deslogar da conta atual", aux, R.drawable.ic_exit));
 
         return new RecyclerViewSettingsAdapter(context, list);
+
+    }
+
+    public RecyclerViewBeckAnxietyInventoryAdapter beckTestAdapter(){
+        Questions list=new JsonDataBeckTest(context, "teste_beck_questoes.json").getQuestions();
+
+        return new RecyclerViewBeckAnxietyInventoryAdapter(context, list);
 
     }
 

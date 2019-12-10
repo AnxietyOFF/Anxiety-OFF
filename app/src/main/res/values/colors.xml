@@ -5,4 +5,8 @@
     <color name="colorAccent">#FF8138</color>
     <color name="selected_item">#e1ecf4</color>
     <color name="fragment_breath_background">#dadada</color>
+    <color name="sum_3">#ff6961</color>
+    <color name="sum_2">#FFC09D</color>
+    <color name="sum_1">#FFFA84</color>
+    <color name="sum_0">#BEF38B</color>
 </resources>

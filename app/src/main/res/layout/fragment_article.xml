@@ -53,6 +53,16 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <ImageView
+            android:id="@+id/fragment_article_separator"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragment_article_viewGroup"
+            android:src="@android:color/darker_gray" />
+
         <TextView
             android:id="@+id/fragment_article_text"
             style="@style/App_Article_TextViewStyle"
@@ -63,7 +73,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragment_article_viewGroup"
+            app:layout_constraintTop_toBottomOf="@id/fragment_article_separator"
             tools:text="Texto de exemplo aqui" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

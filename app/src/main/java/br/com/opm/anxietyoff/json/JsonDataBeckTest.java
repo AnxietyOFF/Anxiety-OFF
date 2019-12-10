@@ -6,27 +6,25 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
-import java.util.List;
 
-import br.com.opm.anxietyoff.model.Article;
+import br.com.opm.anxietyoff.model.Questions;
 
-public class JsonData {
+public class JsonDataBeckTest {
 
-    private List<Article> articles;
+    private Questions questions;
     private String fileURL;
     private Context context;
 
-    public JsonData(Context context, String fileURL) {
+    public JsonDataBeckTest(Context context, String fileURL) {
         this.context = context;
         this.fileURL = fileURL;
-        atualizaArticles();
+        atualizaQuestions();
     }
 
-    private void atualizaArticles() {
+    private void atualizaQuestions() {
         Gson gson = new Gson();
         String jsonText = readJsonFile();
-        articles = Arrays.asList(gson.fromJson(jsonText, Article[].class));
+        questions = gson.fromJson(jsonText, Questions.class);
     }
 
     public String readJsonFile() {
@@ -44,8 +42,8 @@ public class JsonData {
         return text;
     }
 
-    public List<Article> getArticles() {
-        return articles;
+    public Questions getQuestions() {
+        return questions;
     }
 
 }

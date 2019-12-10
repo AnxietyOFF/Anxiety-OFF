@@ -20,12 +20,12 @@ import br.com.opm.anxietyoff.R;
 import br.com.opm.anxietyoff.model.Article;
 import br.com.opm.anxietyoff.ui.activity.StudentInterfaceActivity;
 
-public class RecyclerViewArticleAdapter extends RecyclerView.Adapter<RecyclerViewArticleAdapter.ViewHolder> implements Serializable {
+public class RecyclerViewAnxietyTestsAdapter extends RecyclerView.Adapter<RecyclerViewAnxietyTestsAdapter.ViewHolder>{
 
     private List<Article> list;
     private Context context;
 
-    public RecyclerViewArticleAdapter(Context context, List<Article> list) {
+    public RecyclerViewAnxietyTestsAdapter(Context context, List<Article> list) {
         this.list = list;
         this.context = context;
     }
@@ -39,10 +39,10 @@ public class RecyclerViewArticleAdapter extends RecyclerView.Adapter<RecyclerVie
             public void onClick(View view) {
                 int position = (int) view.getTag();
                 StudentInterfaceActivity studentInterfaceActivity = (StudentInterfaceActivity) context;
-                studentInterfaceActivity.setArticleFragment(list.get(position));
+                studentInterfaceActivity.setTestArticleFragment(list.get(position));
             }
         });
-        return new RecyclerViewArticleAdapter.ViewHolder(view);
+        return new RecyclerViewAnxietyTestsAdapter.ViewHolder(view);
     }
 
     @Override

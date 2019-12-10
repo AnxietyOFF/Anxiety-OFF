@@ -16,7 +16,7 @@ import java.util.List;
 import br.com.opm.anxietyoff.R;
 import br.com.opm.anxietyoff.model.SettingsItem;
 
-public class RecyclerViewSettingsAdapter extends RecyclerView.Adapter<RecyclerViewSettingsAdapter.ViewHolder> implements Serializable {
+public class RecyclerViewSettingsAdapter extends RecyclerView.Adapter<RecyclerViewSettingsAdapter.ViewHolder>{
 
     transient private List<SettingsItem> list;
     transient private Context context;

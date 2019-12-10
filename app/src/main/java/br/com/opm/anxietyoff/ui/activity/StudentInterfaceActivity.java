@@ -29,6 +29,7 @@ import br.com.opm.anxietyoff.ui.fragment.ArticleFragment;
 import br.com.opm.anxietyoff.ui.fragment.BreathFragment;
 import br.com.opm.anxietyoff.ui.fragment.HomeFragment;
 import br.com.opm.anxietyoff.ui.fragment.RecyclerListFragment;
+import br.com.opm.anxietyoff.ui.fragment.TestArticleFragment;
 
 public class StudentInterfaceActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -133,6 +134,18 @@ public class StudentInterfaceActivity extends AppCompatActivity implements Navig
         addFragment(new ArticleFragment(article));
     }
 
+    public void setTestArticleFragment(Article article) {
+        addFragment(TestArticleFragment.newInstance(article));
+    }
+
+    private void recyclerViewBuilder(String[] list){
+        Bundle bundle = new Bundle();
+        bundle.putStringArray("adapter", list);
+        RecyclerListFragment frag = new RecyclerListFragment();
+        frag.setArguments(bundle);
+        replaceFragment(frag);
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
@@ -145,22 +158,14 @@ public class StudentInterfaceActivity extends AppCompatActivity implements Navig
                     break;
                 }
                 case R.id.student_nav_item_entender_ansiedade: {
-                    String[] list = {"article", "entender_ansiedade.json"};
-                    Bundle bundle = new Bundle();
-                    bundle.putStringArray("adapter", list);
-                    RecyclerListFragment frag = new RecyclerListFragment();
-                    frag.setArguments(bundle);
-                    replaceFragment(frag);
+                    String[] list = {"lesson", "entender_ansiedade.json"};
+                    recyclerViewBuilder(list);
                     toolbar.setTitle("Para entender");
                     break;
                 }
                 case R.id.student_nav_item_tratar_ansiedade: {
-                    String[] list = {"article", "tratar_ansiedade.json"};
-                    Bundle bundle = new Bundle();
-                    bundle.putStringArray("adapter", list);
-                    RecyclerListFragment frag = new RecyclerListFragment();
-                    frag.setArguments(bundle);
-                    replaceFragment(frag);
+                    String[] list = {"lesson", "tratar_ansiedade.json"};
+                    recyclerViewBuilder(list);
                     toolbar.setTitle("Para tratar");
                     break;
                 }
@@ -191,12 +196,14 @@ public class StudentInterfaceActivity extends AppCompatActivity implements Navig
                     break;
                 }
                 case R.id.student_nav_item_teste: {
-                    Toast.makeText(this, "Teste", Toast.LENGTH_SHORT).show();
-                    toolbar.setTitle("Teste");
+                    String[] list = {"test", "testes_ansiedade.json"};
+                    recyclerViewBuilder(list);
+                    toolbar.setTitle("Testes");
                     break;
                 }
                 case R.id.student_nav_item_relatorio: {
-                    Toast.makeText(this, "Relatório", Toast.LENGTH_SHORT).show();
+                    String[] list = {"report"};
+                    recyclerViewBuilder(list);
                     toolbar.setTitle("Relatório");
                     break;
                 }

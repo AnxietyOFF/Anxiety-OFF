@@ -36,7 +36,7 @@ public class RecyclerViewDiaryAdapter extends RecyclerView.Adapter<RecyclerViewD
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.diary_recycler_view_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.recycler_view_item_diary, parent, false);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
