@@ -20,6 +20,7 @@ import br.com.opm.anxietyoff.json.JsonDataBeckTest;
 import br.com.opm.anxietyoff.model.Answers;
 import br.com.opm.anxietyoff.model.Questions;
 import br.com.opm.anxietyoff.model.SettingsItem;
+import br.com.opm.anxietyoff.ui.activity.DeleteAccountActivity;
 import br.com.opm.anxietyoff.ui.activity.LoginActivity;
 import br.com.opm.anxietyoff.ui.fragment.RecyclerListFragment;
 
@@ -89,10 +90,21 @@ public class AdapterCreator {
         List<SettingsItem> list = new ArrayList<>();
         View.OnClickListener aux;
 
+        //Excluir conta
+        aux=new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println(">>>excluir");
+                context.startActivity(new Intent(context, DeleteAccountActivity.class));
+            }
+        };
+        list.add(new SettingsItem("Excluir Conta", "Apagar todos os dados da conta e deslogar", aux, R.drawable.ic_delete_account));
+
         //Sair
         aux = new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
+                System.out.println(">>>logoff");
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Confirmação de logoff");
                 builder.setMessage("Deseja mesmo deslogar da conta atual?");

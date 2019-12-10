@@ -15,8 +15,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clickable="true"
-        android:focusable="true"
         android:padding="8dp">
 
         <TextView
@@ -32,6 +30,8 @@
             tools:text="1. Dormência ou formigamento" />
 
         <SeekBar
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="10dp"
             android:id="@+id/recycler_view_item_beck_test_answer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -37,6 +37,15 @@
 
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/activity_student_interface_bottom_bar_fake"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:visibility="gone"
+            android:src="#203a51"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <ImageView
             android:id="@+id/activity_student_interface_bottom_bar"

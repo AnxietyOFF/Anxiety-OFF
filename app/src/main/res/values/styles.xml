@@ -11,6 +11,10 @@
         <item name="android:textSize">@dimen/switchText</item>
     </style>
 
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
     <style name="App_ButtonStyle" parent="@style/Widget.AppCompat.Button">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:minHeight">0dp</item>

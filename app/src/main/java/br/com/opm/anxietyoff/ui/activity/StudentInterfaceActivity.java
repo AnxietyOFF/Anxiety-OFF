@@ -1,6 +1,7 @@
 package br.com.opm.anxietyoff.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,7 +42,8 @@ public class StudentInterfaceActivity extends AppCompatActivity implements Navig
     private View headerView;
     private TextView name, email;
     private Authentication authentication;
-    private ImageView profileImage;
+    private ImageView profileImage, bottomBarFake;
+    private boolean painted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,7 @@ public class StudentInterfaceActivity extends AppCompatActivity implements Navig
         name = headerView.findViewById(R.id.nav_header_textView_name);
         email = headerView.findViewById(R.id.nav_header_textView_email);
         profileImage = headerView.findViewById(R.id.nav_header_imageView_profile);
+        bottomBarFake=findViewById(R.id.activity_student_interface_bottom_bar_fake);
     }
 
     private void setLayout() {
@@ -152,7 +155,7 @@ public class StudentInterfaceActivity extends AppCompatActivity implements Navig
         if (!menuItem.isChecked()) {
 
             switch (menuItem.getItemId()) {
-                case R.id.student_nav_item_home: {
+                case R.id.student_nav_item_home:{
                     replaceFragment(new HomeFragment());
                     toolbar.setTitle(R.string.app_name);
                     break;
@@ -211,6 +214,16 @@ public class StudentInterfaceActivity extends AppCompatActivity implements Navig
                     Toast.makeText(this, "Ue??", Toast.LENGTH_SHORT).show();
                 }
             }
+
+            if(menuItem.getItemId()==R.id.student_nav_item_home) {
+                painted=true;
+                bottomBarFake.setVisibility(View.VISIBLE);
+            }
+            else if(painted){
+                painted=false;
+                bottomBarFake.setVisibility(View.GONE);
+            }
+
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
