@@ -1,5 +1,5 @@
 # Anxiety-OFF
-Oficial repository of Anxiety OFF project.
+Official repository of Anxiety OFF project.
 
 Developers: Fernando Vítor Ventilari Neder, Jean Carlo de Souza Brito, Kauê França Cavalcante.
 
